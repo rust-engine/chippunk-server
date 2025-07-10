@@ -7,12 +7,16 @@ import secrets
 router = APIRouter()
 app = FastAPI()
 
+# Declare what data we need, and in which type.
 class LoginData(BaseModel):
     username: str
     password: str
 
+
+# Login function starts here
 @router.post("/login", tags=["auth"])
 def login(user: LoginData):
+    # We use 
     db = get_db()
     cur = db.cursor()
 
