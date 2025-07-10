@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ChipPunk - Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+</head>
+<body>
+    <form id="loginForm">
+        <input type="text" name="username" id="username" required>
+        <input type="password" name="password" id="password" required>
+        <button type="submit">Login</button>
+    </form>
+    <script>
+        $("#loginForm").submit(function(e){
+            e.preventDefault();
+
+            const data = {
+                username: $("input[name='username']").val(),
+                password: $("input[name='password']").val()
+            };
+
+            $.ajax({
+                url: "/auth/login",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function(response){
+                    alert("Auth ID: " + response.auth_id);
+                    alert("Token: " + response.token);
+                },
+                error: function(xhr){
+                    alert("Error: "+xhr.responseJSON.detail);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
